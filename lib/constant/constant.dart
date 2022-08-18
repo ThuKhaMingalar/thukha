@@ -1,0 +1,1 @@
+const tableImage = "images/table.png";
