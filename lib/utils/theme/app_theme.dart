@@ -69,6 +69,15 @@ class AppTheme{
           color: Colors.grey,
           size: 50,
         )
+      ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        
+        backgroundColor: Colors.black,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(
+            Radius.circular(20)
+          )
+        )
       )
     );
   }

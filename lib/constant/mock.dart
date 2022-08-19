@@ -1,3 +1,6 @@
+import 'package:thukha/model/item.dart';
+
+import '../model/order.dart';
 import '../model/shop.dart';
 
 const popShop = "https://images-platform.99static.com//YJQkKp22e8n0PHJlYbCvpH1pElc=/130x64:936x870/fit-in/590x590/99designs-contests-attachments/93/93135/attachment_93135953";
@@ -34,3 +37,21 @@ final List<Shop> shopList = [
     image: finerHund,
     ),
 ];
+
+List<Order> mockOrderList = List.generate(
+  2, (index){
+    return Order(
+    id: "$index", 
+    itemsList: List.generate(3, (index){
+      return Item(
+        id: "$index", 
+        name: "Medicine $index", 
+        count: "${index + 1}",
+        dateTime: DateTime.now().toString(),
+      );
+    }), 
+    ownerID: "$index", 
+    dateTime: DateTime.now(),
+    );
+  },
+  );
