@@ -23,6 +23,10 @@ class AppTheme{
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
+      subtitle1: GoogleFonts.inter(
+        fontSize: 14,
+        color: Colors.black,
+      ),
     );
 
   static ThemeData lightTheme(){

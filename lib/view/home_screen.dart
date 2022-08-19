@@ -36,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                     right: 0,
                     child: CircleAvatar(
                                 radius: 12,
-                                backgroundColor: Colors.grey,
+                                backgroundColor: Colors.grey.shade300,
                                 child: Text(
                                   "598",
                                   style: Theme.of(context).textTheme.bodyText2
@@ -57,6 +57,7 @@ class HomeScreen extends StatelessWidget {
           return BottomNavigationBar(
             currentIndex: stateController.bNBIndex.value,
             onTap: stateController.changeBNBIndex,
+            selectedItemColor: Colors.black,
             items: const [
               BottomNavigationBarItem(
                 label: "Home",

@@ -58,7 +58,7 @@ class CardItem extends StatelessWidget {
             //Count
             CircleAvatar(
                 radius: 25,
-                backgroundColor: Colors.grey,
+                backgroundColor: Colors.grey.shade300,
                 child: Text(
                   item.count,
                   style: Theme.of(context).textTheme.bodyText2,

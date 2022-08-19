@@ -69,8 +69,15 @@ class HomeView extends StatelessWidget {
                                     child: CachedNetworkImage(
                                               progressIndicatorBuilder: (context, url, status) {
                                                 return Shimmer.fromColors(
+                                                  // ignore: sort_child_properties_last
                                                   child:  Container(
-                                                    color: Colors.white,
+                                                    height: 140,
+                                                    decoration: const BoxDecoration(
+                                                      color: Colors.white,
+                                                      borderRadius: BorderRadius.all(
+                                                        Radius.circular(20)
+                                                      )
+                                                    ),
                                                   ),
                                                   baseColor: Colors.grey.shade300,
                                                   highlightColor: Colors.white,
@@ -93,7 +100,7 @@ class HomeView extends StatelessWidget {
                               right: 0,
                               child: CircleAvatar(
                                 radius: 20,
-                                backgroundColor: Colors.grey,
+                                backgroundColor: Colors.grey.shade300,
                                 child: Text(
                                   "59",
                                   style: Theme.of(context).textTheme.bodyText2,
