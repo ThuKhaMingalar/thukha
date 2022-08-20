@@ -149,6 +149,46 @@ class HomeView extends StatelessWidget {
                 ),
               )
             ),
+
+            const SizedBox(height: 15,),
+            //Manage Stock Table
+            Text(
+                "Manage stock table",
+                style: Theme.of(context).textTheme.headline3,
+              ),
+            SizedBox(
+              height: 85,
+              child: Card(
+                shape: const RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
+                child: InkWell(
+                  onTap: () => Get.toNamed(manageStockStableScreen),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        //Table Image
+                         Image.asset(
+                            stockTable,
+                            width: 85,
+                            fit: BoxFit.fill,
+                          ),
+                        //Table Image
+                         Image.asset(
+                            stockTable,
+                            width: 85,
+                            fit: BoxFit.fill,
+                          ),
+                        //Icon Button
+                        const Icon(FontAwesomeIcons.circleArrowRight),
+                      ],
+                    ),
+                  ),
+                ),
+              )
+            ),
             ],
           ),
       ),

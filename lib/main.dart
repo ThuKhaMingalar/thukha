@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:thukha/controller/auth_controller.dart';
+import 'package:thukha/controller/data_controller.dart';
 import 'package:thukha/controller/state_controller.dart';
 import 'package:thukha/utils/routes/route_url.dart';
 import 'package:thukha/utils/routes/routes.dart';
@@ -18,6 +19,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(StateController());
+    Get.put(DataController());
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme(),

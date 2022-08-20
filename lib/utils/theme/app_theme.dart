@@ -18,6 +18,11 @@ class AppTheme{
         fontWeight: FontWeight.bold,
         color: Colors.black,
       ),
+      bodyText1: GoogleFonts.inter(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: Colors.black,
+      ),
       bodyText2: GoogleFonts.inter(
         fontSize: 16,
         fontWeight: FontWeight.bold,

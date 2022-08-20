@@ -22,8 +22,12 @@ Item _$ItemFromJson(Map<String, dynamic> json) {
 mixin _$Item {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
-  String get count => throw _privateConstructorUsedError;
-  String get dateTime => throw _privateConstructorUsedError;
+  int get count => throw _privateConstructorUsedError;
+  DateTime get dateTime => throw _privateConstructorUsedError;
+  int get unitCost => throw _privateConstructorUsedError;
+  int get inHand => throw _privateConstructorUsedError;
+  String get code => throw _privateConstructorUsedError;
+  DateTime get expirationDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -34,7 +38,15 @@ mixin _$Item {
 abstract class $ItemCopyWith<$Res> {
   factory $ItemCopyWith(Item value, $Res Function(Item) then) =
       _$ItemCopyWithImpl<$Res>;
-  $Res call({String id, String name, String count, String dateTime});
+  $Res call(
+      {String id,
+      String name,
+      int count,
+      DateTime dateTime,
+      int unitCost,
+      int inHand,
+      String code,
+      DateTime expirationDate});
 }
 
 /// @nodoc
@@ -51,6 +63,10 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
     Object? name = freezed,
     Object? count = freezed,
     Object? dateTime = freezed,
+    Object? unitCost = freezed,
+    Object? inHand = freezed,
+    Object? code = freezed,
+    Object? expirationDate = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -64,11 +80,27 @@ class _$ItemCopyWithImpl<$Res> implements $ItemCopyWith<$Res> {
       count: count == freezed
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      unitCost: unitCost == freezed
+          ? _value.unitCost
+          : unitCost // ignore: cast_nullable_to_non_nullable
+              as int,
+      inHand: inHand == freezed
+          ? _value.inHand
+          : inHand // ignore: cast_nullable_to_non_nullable
+              as int,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
               as String,
+      expirationDate: expirationDate == freezed
+          ? _value.expirationDate
+          : expirationDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -78,7 +110,15 @@ abstract class _$$_ItemCopyWith<$Res> implements $ItemCopyWith<$Res> {
   factory _$$_ItemCopyWith(_$_Item value, $Res Function(_$_Item) then) =
       __$$_ItemCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String name, String count, String dateTime});
+  $Res call(
+      {String id,
+      String name,
+      int count,
+      DateTime dateTime,
+      int unitCost,
+      int inHand,
+      String code,
+      DateTime expirationDate});
 }
 
 /// @nodoc
@@ -96,6 +136,10 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
     Object? name = freezed,
     Object? count = freezed,
     Object? dateTime = freezed,
+    Object? unitCost = freezed,
+    Object? inHand = freezed,
+    Object? code = freezed,
+    Object? expirationDate = freezed,
   }) {
     return _then(_$_Item(
       id: id == freezed
@@ -109,11 +153,27 @@ class __$$_ItemCopyWithImpl<$Res> extends _$ItemCopyWithImpl<$Res>
       count: count == freezed
           ? _value.count
           : count // ignore: cast_nullable_to_non_nullable
-              as String,
+              as int,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
+              as DateTime,
+      unitCost: unitCost == freezed
+          ? _value.unitCost
+          : unitCost // ignore: cast_nullable_to_non_nullable
+              as int,
+      inHand: inHand == freezed
+          ? _value.inHand
+          : inHand // ignore: cast_nullable_to_non_nullable
+              as int,
+      code: code == freezed
+          ? _value.code
+          : code // ignore: cast_nullable_to_non_nullable
               as String,
+      expirationDate: expirationDate == freezed
+          ? _value.expirationDate
+          : expirationDate // ignore: cast_nullable_to_non_nullable
+              as DateTime,
     ));
   }
 }
@@ -125,7 +185,11 @@ class _$_Item implements _Item {
       {required this.id,
       required this.name,
       required this.count,
-      required this.dateTime});
+      required this.dateTime,
+      required this.unitCost,
+      required this.inHand,
+      required this.code,
+      required this.expirationDate});
 
   factory _$_Item.fromJson(Map<String, dynamic> json) => _$$_ItemFromJson(json);
 
@@ -134,13 +198,21 @@ class _$_Item implements _Item {
   @override
   final String name;
   @override
-  final String count;
+  final int count;
   @override
-  final String dateTime;
+  final DateTime dateTime;
+  @override
+  final int unitCost;
+  @override
+  final int inHand;
+  @override
+  final String code;
+  @override
+  final DateTime expirationDate;
 
   @override
   String toString() {
-    return 'Item(id: $id, name: $name, count: $count, dateTime: $dateTime)';
+    return 'Item(id: $id, name: $name, count: $count, dateTime: $dateTime, unitCost: $unitCost, inHand: $inHand, code: $code, expirationDate: $expirationDate)';
   }
 
   @override
@@ -151,7 +223,12 @@ class _$_Item implements _Item {
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
             const DeepCollectionEquality().equals(other.count, count) &&
-            const DeepCollectionEquality().equals(other.dateTime, dateTime));
+            const DeepCollectionEquality().equals(other.dateTime, dateTime) &&
+            const DeepCollectionEquality().equals(other.unitCost, unitCost) &&
+            const DeepCollectionEquality().equals(other.inHand, inHand) &&
+            const DeepCollectionEquality().equals(other.code, code) &&
+            const DeepCollectionEquality()
+                .equals(other.expirationDate, expirationDate));
   }
 
   @JsonKey(ignore: true)
@@ -161,7 +238,11 @@ class _$_Item implements _Item {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
       const DeepCollectionEquality().hash(count),
-      const DeepCollectionEquality().hash(dateTime));
+      const DeepCollectionEquality().hash(dateTime),
+      const DeepCollectionEquality().hash(unitCost),
+      const DeepCollectionEquality().hash(inHand),
+      const DeepCollectionEquality().hash(code),
+      const DeepCollectionEquality().hash(expirationDate));
 
   @JsonKey(ignore: true)
   @override
@@ -180,8 +261,12 @@ abstract class _Item implements Item {
   factory _Item(
       {required final String id,
       required final String name,
-      required final String count,
-      required final String dateTime}) = _$_Item;
+      required final int count,
+      required final DateTime dateTime,
+      required final int unitCost,
+      required final int inHand,
+      required final String code,
+      required final DateTime expirationDate}) = _$_Item;
 
   factory _Item.fromJson(Map<String, dynamic> json) = _$_Item.fromJson;
 
@@ -190,9 +275,17 @@ abstract class _Item implements Item {
   @override
   String get name;
   @override
-  String get count;
+  int get count;
   @override
-  String get dateTime;
+  DateTime get dateTime;
+  @override
+  int get unitCost;
+  @override
+  int get inHand;
+  @override
+  String get code;
+  @override
+  DateTime get expirationDate;
   @override
   @JsonKey(ignore: true)
   _$$_ItemCopyWith<_$_Item> get copyWith => throw _privateConstructorUsedError;

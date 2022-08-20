@@ -87,7 +87,7 @@ class OrderPendingList extends StatelessWidget {
                         radius: 25,
                         backgroundColor: Colors.grey.shade300,
                         child: Text(
-                          item.count,
+                          "${item.count}",
                           style: Theme.of(context).textTheme.bodyText2,
                         ),
                       ),

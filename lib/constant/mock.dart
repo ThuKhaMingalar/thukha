@@ -9,7 +9,94 @@ const manyAndMe = "https://images-platform.99static.com//4ycuXrwyFwnAszAH7gp1Tv-
 const shopStar = "https://images-platform.99static.com//Fq4T2G3Hev2aZK5JtRQQ6-1xf0c=/204x2204:1599x3599/fit-in/500x500/99designs-contests-attachments/72/72894/attachment_72894672";
 const finerHund = "https://images-platform.99static.com//iV7JTEDk353Q0wgunwNYXYiw7UQ=/241x245:792x796/fit-in/500x500/99designs-contests-attachments/91/91553/attachment_91553593";
 
+List<String> mockDrugNameList = [
+  "Abilify",
+  "Abilify Maintena",
+  "Acetaminophen and Hydrocodone",
+  "Adderall XR",
+  "Atropine",
+  "Biotin",
+  "Bactrim DS",
+  "Bacitracin",
+  "Buprenorphine & Naloxone",
+  "Betamethasone",
+  "Carbidopa and levodopa",
+  "Chlorpheniramine",
+  "Cyanocobalamin",
+  "Clarithromycin",
+  "Cyclobenzaprine",
+];
 
+final List<int> mockCostList = [
+  3000,
+  2340,
+  5670,
+  340,
+  9870,
+  3000,
+  2340,
+  5670,
+  340,
+  9870,
+  3000,
+  2340,
+  5670,
+  340,
+  9870,
+];
+final List<int> mockInHandList = [
+  20,
+  11,
+  56,
+  45,
+  87,
+  20,
+  11,
+  56,
+  45,
+  87,
+  20,
+  11,
+  56,
+  45,
+  87,
+];
+
+List<String> mockCodeList = [
+  "D0123",
+  "D0124",
+  "D0125",
+  "D0126",
+  "D0127",
+  "D0128",
+  "D0129",
+  "D0130",
+  "D0131",
+  "D0132",
+  "D0133",
+  "D0134",
+  "D0135",
+  "D0136",
+  "D0137",
+];
+
+List<DateTime> mockExpirationDateList = [
+  DateTime.now().add(const Duration(days: 1)),
+  DateTime.now().add(const Duration(days: 2)),
+  DateTime.now().add(const Duration(days: 3)),
+  DateTime.now().add(const Duration(days: 4)),
+  DateTime.now().add(const Duration(days: 5)),
+  DateTime.now().add(const Duration(days: 6)),
+  DateTime.now().add(const Duration(days: 7)),
+  DateTime.now().add(const Duration(days: 8)),
+  DateTime.now().add(const Duration(days: 9)),
+  DateTime.now().add(const Duration(days: 10)),
+  DateTime.now().add(const Duration(days: 11)),
+  DateTime.now().add(const Duration(days: 12)),
+  DateTime.now().add(const Duration(days: 13)),
+  DateTime.now().add(const Duration(days: 14)),
+  DateTime.now().add(const Duration(days: 15)),
+];
 final List<Shop> shopList = [
   Shop(
     id: "1", 
@@ -45,9 +132,15 @@ List<Order> mockOrderList = List.generate(
     itemsList: List.generate(3, (index){
       return Item(
         id: "$index", 
+        code: "$index",
         name: "Medicine $index", 
-        count: "${index + 1}",
-        dateTime: DateTime.now().toString(),
+        count: index + 1,
+        unitCost: 300,
+        inHand: 20,
+        expirationDate: DateTime.now().subtract(const Duration(
+          days: 365,
+        )),
+        dateTime: DateTime.now(),
       );
     }), 
     ownerID: "$index", 
