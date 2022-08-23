@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "393841757916",
+    "project_id": "thukha-mingalar",
+    "storage_bucket": "thukha-mingalar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:393841757916:android:a9d4640b7cf84a1d312e19",
+        "android_client_info": {
+          "package_name": "com.kzn.thukha"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "393841757916-c3svc0s5be2ml9prdaj5euv7d00idvrv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.kzn.thukha",
+            "certificate_hash": "0cace59864e260a684ebebf2cc33b999f2950cd4"
+          }
+        },
+        {
+          "client_id": "393841757916-9b15atrghglcph425jj16v0ps7dbpp6r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCSXRwIaQSVJbuRVc_GO633ndQbJOsd6b0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "393841757916-9b15atrghglcph425jj16v0ps7dbpp6r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

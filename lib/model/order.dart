@@ -12,6 +12,7 @@ class Order with _$Order {
     required String id,
     required List<Item> itemsList,
     required String ownerID,
+    required int status,
     required DateTime dateTime,
   }) = _Order;
 

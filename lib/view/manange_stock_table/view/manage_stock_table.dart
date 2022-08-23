@@ -18,18 +18,10 @@ class ManageStockTable extends StatefulWidget {
 }
 
 class _ManageStockTableState extends State<ManageStockTable> {
-  final DataController _dataController = Get.find();
-  final ManageStockController _controller = Get.find();
-  late ItemStockDataSource _itemStockDataSource;
 
-  @override
-  void initState() {
-    _itemStockDataSource = ItemStockDataSource(
-      items: _dataController.itemList,
-      dataGridController: _controller.dataGridController,
-    );
-    super.initState();
-  }
+  final ManageStockController _controller = Get.find();
+  final DataController _dataController = Get.find();
+  
 
   @override
   Widget build(BuildContext context) {
@@ -74,8 +66,9 @@ class _ManageStockTableState extends State<ManageStockTable> {
                   )),
                 child: SfDataGrid(
                   allowEditing: true,
+                  allowPullToRefresh: true,
                   controller: _controller.dataGridController,
-                  source: _itemStockDataSource,
+                  source: _controller.itemStockDataSource,
                   allowSorting: true,
                   selectionMode: SelectionMode.single,
                   navigationMode: GridNavigationMode.cell,
@@ -83,15 +76,15 @@ class _ManageStockTableState extends State<ManageStockTable> {
                   swipeMaxOffset: 100.0,
                    onSelectionChanged:
                   (List<DataGridRow> addedRows, List<DataGridRow> removedRows) {
-                    final index = _itemStockDataSource.dataGridRows.indexOf(addedRows.last);
+                    final index = _controller.itemStockDataSource.dataGridRows.indexOf(addedRows.last);
                     Item item = _dataController.itemList[index];
                     _dataController.setSelectedItem(item);    
                   },
                   startSwipeActionsBuilder: (BuildContext context, DataGridRow row, int rowIndex) {
                           return GestureDetector(
                               onTap: () {
-                                _itemStockDataSource.dataGridRows.removeAt(rowIndex);
-                                _itemStockDataSource.updateDataGridSource();
+                                _controller.itemStockDataSource.dataGridRows.removeAt(rowIndex);
+                                _controller.itemStockDataSource.updateDataGridSource();
                               },
                               child: Container(
                                   color: Colors.redAccent,

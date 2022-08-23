@@ -52,8 +52,8 @@ class ProfileView extends StatelessWidget {
                         errorWidget: (context, url, whatever) {
                           return const Text("Image not available");
                         },
-                        imageUrl: authController.isAuthenticated.value ?
-                        popShop : nullUserImage,
+                        imageUrl: (authController.currentShop.value?.status == 5) ?
+                        nullUserImage : authController.currentShop.value!.image,
                         fit: BoxFit.cover,
                         height: 140,
                       );
@@ -63,9 +63,10 @@ class ProfileView extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           //Authenticated User Or NOt
-          Obx(() => authController.isAuthenticated.value ? 
-          const AuthenticatedProfile() :
-          const UnAuthenticatedProfile())
+          Obx(() => (authController.currentShop.value?.status == 5) ?
+          const UnAuthenticatedProfile()
+          :
+          const AuthenticatedProfile())
         ],
       ),
     );
@@ -80,17 +81,18 @@ class AuthenticatedProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthController authController = Get.find();
+    final shop = authController.currentShop.value!;
     return Column(
       children: [
         //Name
         Text(
-          "Pop Shop".toUpperCase(),
+          shop.name.toUpperCase(),
           style: Theme.of(context).textTheme
           .headline1,
         ),
         //LogOut
         TextButton(
-          onPressed: () => authController.isAuthenticated.value = false,
+          onPressed: () => authController.logOut(),
           child: Text(
             "LOG OUT".toUpperCase(),
           style: Theme.of(context).textTheme

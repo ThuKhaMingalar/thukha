@@ -3,13 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 
-showAcceptDialog(context){
+import '../../../controller/data_controller.dart';
+
+showAcceptDialog(context,String orderID){
   showDialog(
     barrierColor: Colors.white.withOpacity(0),
             context: context, 
             builder: (context){
-              return const Center(
-                child: TimeInputFormField(),
+              return  Center(
+                child: TimeInputFormField(orderID: orderID),
               );
             }
     );
@@ -18,7 +20,10 @@ showAcceptDialog(context){
 class TimeInputFormField extends StatefulWidget {
   const TimeInputFormField({
     Key? key,
+    required this.orderID,
   }) : super(key: key);
+
+  final String orderID;
 
   @override
   State<TimeInputFormField> createState() => _TimeInputFormFieldState();
@@ -62,6 +67,7 @@ class _TimeInputFormFieldState extends State<TimeInputFormField> {
 
   @override
   Widget build(BuildContext context) {
+    final DataController dataController = Get.find();
     final size = MediaQuery.of(context).size;
     return   SizedBox(
       height: 180,
@@ -169,7 +175,7 @@ class _TimeInputFormFieldState extends State<TimeInputFormField> {
                                             ),
                                           ),
                                           onPressed: (){
-                                                 Get.back();
+                                                 dataController.confirmOrder(widget.orderID,1);
                                                   }, 
                                                   child: SizedBox(
                                                     height: 50,

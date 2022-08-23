@@ -1,5 +1,7 @@
 import 'package:thukha/model/item.dart';
+import 'package:uuid/uuid.dart';
 
+import '../model/absence_report.dart';
 import '../model/order.dart';
 import '../model/shop.dart';
 
@@ -102,49 +104,43 @@ final List<Shop> shopList = [
     id: "1", 
     name: "Pop Shop", 
     image: popShop,
+    status: 0,
     ),
   Shop(
     id: "2", 
     name: "SKU Profit ", 
     image: skuProfit,
+    status: 0,
     ),
   Shop(
     id: "3", 
     name: "Many & Me", 
     image: manyAndMe,
+    status: 0,
     ),
   Shop(
     id: "4", 
     name: "Shop Star", 
     image: shopStar,
+    status: 0,
     ),
   Shop(
     id: "1", 
     name: "Finer Hund", 
     image: finerHund,
+    status: 0,
     ),
 ];
 
-List<Order> mockOrderList = List.generate(
-  2, (index){
-    return Order(
-    id: "$index", 
-    itemsList: List.generate(3, (index){
-      return Item(
-        id: "$index", 
-        code: "$index",
-        name: "Medicine $index", 
-        count: index + 1,
-        unitCost: 300,
-        inHand: 20,
-        expirationDate: DateTime.now().subtract(const Duration(
-          days: 365,
-        )),
-        dateTime: DateTime.now(),
-      );
-    }), 
-    ownerID: "$index", 
-    dateTime: DateTime.now(),
-    );
-  },
-  );
+
+  List<AbsenceReport> absenceList = shopList.map((e) => 
+    AbsenceReport(
+      id: Uuid().v1(), 
+      name: "${e.name}'s Employee", 
+      position: "${e.name}'s employee's position", 
+      absenceDate: "from 22 to 89",
+      absenceType: "absence type 1", 
+      rName: "replacement person", 
+      dateTime: DateTime.now(), 
+      ownerID: e.id,
+    )).toList();

@@ -23,6 +23,7 @@ mixin _$Shop {
   String get id => throw _privateConstructorUsedError;
   String get name => throw _privateConstructorUsedError;
   String get image => throw _privateConstructorUsedError;
+  int get status => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -33,7 +34,7 @@ mixin _$Shop {
 abstract class $ShopCopyWith<$Res> {
   factory $ShopCopyWith(Shop value, $Res Function(Shop) then) =
       _$ShopCopyWithImpl<$Res>;
-  $Res call({String id, String name, String image});
+  $Res call({String id, String name, String image, int status});
 }
 
 /// @nodoc
@@ -49,6 +50,7 @@ class _$ShopCopyWithImpl<$Res> implements $ShopCopyWith<$Res> {
     Object? id = freezed,
     Object? name = freezed,
     Object? image = freezed,
+    Object? status = freezed,
   }) {
     return _then(_value.copyWith(
       id: id == freezed
@@ -63,6 +65,10 @@ class _$ShopCopyWithImpl<$Res> implements $ShopCopyWith<$Res> {
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -72,7 +78,7 @@ abstract class _$$_ShopCopyWith<$Res> implements $ShopCopyWith<$Res> {
   factory _$$_ShopCopyWith(_$_Shop value, $Res Function(_$_Shop) then) =
       __$$_ShopCopyWithImpl<$Res>;
   @override
-  $Res call({String id, String name, String image});
+  $Res call({String id, String name, String image, int status});
 }
 
 /// @nodoc
@@ -89,6 +95,7 @@ class __$$_ShopCopyWithImpl<$Res> extends _$ShopCopyWithImpl<$Res>
     Object? id = freezed,
     Object? name = freezed,
     Object? image = freezed,
+    Object? status = freezed,
   }) {
     return _then(_$_Shop(
       id: id == freezed
@@ -103,6 +110,10 @@ class __$$_ShopCopyWithImpl<$Res> extends _$ShopCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int,
     ));
   }
 }
@@ -110,7 +121,11 @@ class __$$_ShopCopyWithImpl<$Res> extends _$ShopCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$_Shop implements _Shop {
-  _$_Shop({required this.id, required this.name, required this.image});
+  _$_Shop(
+      {required this.id,
+      required this.name,
+      required this.image,
+      required this.status});
 
   factory _$_Shop.fromJson(Map<String, dynamic> json) => _$$_ShopFromJson(json);
 
@@ -120,10 +135,12 @@ class _$_Shop implements _Shop {
   final String name;
   @override
   final String image;
+  @override
+  final int status;
 
   @override
   String toString() {
-    return 'Shop(id: $id, name: $name, image: $image)';
+    return 'Shop(id: $id, name: $name, image: $image, status: $status)';
   }
 
   @override
@@ -133,7 +150,8 @@ class _$_Shop implements _Shop {
             other is _$_Shop &&
             const DeepCollectionEquality().equals(other.id, id) &&
             const DeepCollectionEquality().equals(other.name, name) &&
-            const DeepCollectionEquality().equals(other.image, image));
+            const DeepCollectionEquality().equals(other.image, image) &&
+            const DeepCollectionEquality().equals(other.status, status));
   }
 
   @JsonKey(ignore: true)
@@ -142,7 +160,8 @@ class _$_Shop implements _Shop {
       runtimeType,
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(name),
-      const DeepCollectionEquality().hash(image));
+      const DeepCollectionEquality().hash(image),
+      const DeepCollectionEquality().hash(status));
 
   @JsonKey(ignore: true)
   @override
@@ -161,7 +180,8 @@ abstract class _Shop implements Shop {
   factory _Shop(
       {required final String id,
       required final String name,
-      required final String image}) = _$_Shop;
+      required final String image,
+      required final int status}) = _$_Shop;
 
   factory _Shop.fromJson(Map<String, dynamic> json) = _$_Shop.fromJson;
 
@@ -171,6 +191,8 @@ abstract class _Shop implements Shop {
   String get name;
   @override
   String get image;
+  @override
+  int get status;
   @override
   @JsonKey(ignore: true)
   _$$_ShopCopyWith<_$_Shop> get copyWith => throw _privateConstructorUsedError;

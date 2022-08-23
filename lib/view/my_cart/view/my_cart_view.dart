@@ -1,22 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:thukha/constant/mock.dart';
+import 'package:thukha/controller/data_controller.dart';
 import 'package:thukha/utils/widgets/show_thankyou_dialog/show_thankyou.dart';
+import 'package:thukha/view/my_cart/controller/my_cart_controller.dart';
 
 class MyCartView extends StatelessWidget {
   const MyCartView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final DataController dataController = Get.find();
+    final MyCartController myCartController = Get.find();
     return Scaffold(
       appBar: AppBar(
         title: const Text("My Cart"),
       ),
-      body: ListView.builder(
-        itemCount: mockOrderList[0].itemsList.length,
-        itemBuilder: (context,index){
-          final item = mockOrderList[0].itemsList[index];
-          return CardItem(item: item);
-        },
+      body:dataController.cartMap.isNotEmpty ? ListView(
+        shrinkWrap: true,
+        children: dataController.cartMap.entries
+        .map((e) => CardItem(item: e.value)).toList(),
+      ) : Center(
+        child: Text(
+          "Cart is empty!",
+          style: Theme.of(context).textTheme.headline2,
+        )
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: SizedBox(
@@ -24,7 +32,7 @@ class MyCartView extends StatelessWidget {
         width: 100,
         child: FloatingActionButton(
           onPressed: (){
-            showThankYou(context);
+            myCartController.uploadOrder();
           }, 
           child: Text("Order Now",
           style: Theme.of(context).textTheme
@@ -60,13 +68,13 @@ class CardItem extends StatelessWidget {
                 radius: 25,
                 backgroundColor: Colors.grey.shade300,
                 child: Text(
-                  item.count,
+                  item.count.toString(),
                   style: Theme.of(context).textTheme.bodyText2,
                 ),
               ),
             const SizedBox(width: 25,),
             //Name
-            Text(item.name),
+            Expanded(child: Text(item.name,)),
             
           ],
         ),

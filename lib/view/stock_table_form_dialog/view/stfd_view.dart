@@ -32,14 +32,34 @@ class _STFDViewState extends State<STFDView> {
           children: [
             //Name
              ColumnForm(controller: controller.nameController,
-             label: "Name: ",),
+             label: "Name: ",
+             isUnderlineBorder: true,
+             
+             ),
             //Code
             ColumnForm(controller: controller.codeController,
-             label: "Code: ",),
+             label: "Code: ",
+             isUnderlineBorder: true,
+             
+             ),
             //Unit Cose
-            ColumnForm(controller: controller.codeController,
-             label: "Unit Cost: ",),
+            ColumnForm(controller: controller.costController,
+             label: "Unit Cost: ",
+             isUnderlineBorder: true,
+             
+             ),
+             //In Hand
+            ColumnForm(controller: controller.inHandController,
+             label: "In Hand: ",
+             isUnderlineBorder: true,
+             
+             ),
             //Expiration Date
+            ColumnForm(controller: controller.dateTimeController,
+             label: "Expiration Date: ",
+             isUnderlineBorder: true,
+             
+             ),
             const SizedBox(height: 10),
             //Save
             ElevatedButton(
@@ -53,7 +73,9 @@ class _STFDViewState extends State<STFDView> {
                         ),
                       ),
                       onPressed: (){
-                        Get.back();
+                        //TODO: SAVE TO DATABASE AND
+                        //CALL REFRESH DATAGRID
+                        controller.addItemIntoList();
                       }, 
                       child: SizedBox(
                         height: 50,
@@ -79,17 +101,23 @@ class ColumnForm extends StatelessWidget {
     Key? key,
     required this.controller,
     required this.label,
+    required this.isUnderlineBorder,
+    this.textFieldPaddingLeft,
+    this.height,
   }) : super(key: key);
 
   final TextEditingController controller;
   final String label;
+  final bool isUnderlineBorder;
+  final double? textFieldPaddingLeft;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
        padding: const EdgeInsets.only(left: 20,right: 10,top: 10),
        child: SizedBox(
-        height: 55,
+        height: height ?? 55,
          child: Column(
            crossAxisAlignment: CrossAxisAlignment.start,
            children: [
@@ -105,20 +133,28 @@ class ColumnForm extends StatelessWidget {
                    padding: const EdgeInsets.only(left: 25),
                    child: TextFormField(
                      controller: controller,
-                     decoration: const InputDecoration(
+                     decoration: InputDecoration(
                       counter: null,
                       counterText: "",
-                      contentPadding: EdgeInsets.all(0),
-                       border: UnderlineInputBorder(
+                      contentPadding:  EdgeInsets.only(
+                        left: textFieldPaddingLeft ?? 0
+                      ),
+                       border: isUnderlineBorder ? 
+                       const UnderlineInputBorder(
                          borderSide: BorderSide(
                            color: Colors.black,
                          )
+                       ) : const OutlineInputBorder(
+                         borderSide: BorderSide(color: Colors.black)
                        ),
-                       focusedBorder: UnderlineInputBorder(
+                       focusedBorder: isUnderlineBorder ? 
+                       const UnderlineInputBorder(
                          borderSide: BorderSide(
                            color: Colors.black,
                          )
-                       )
+                       ) : const OutlineInputBorder(
+                         borderSide: BorderSide(color: Colors.black)
+                       ),
                      ),
                    ),
                  ),

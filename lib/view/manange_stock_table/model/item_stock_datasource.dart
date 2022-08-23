@@ -10,18 +10,7 @@ String getDateString(DateTime time) => "${time.year}-${time.month}-${time.day}";
 class ItemStockDataSource extends DataGridSource {
   ItemStockDataSource({required this.items,required 
    this.dataGridController}) {
-    dataGridRows = items
-        .map<DataGridRow>((dataGridRow) => DataGridRow(cells: [
-              DataGridCell<String>(columnName: 'Name', value: dataGridRow.name),
-              DataGridCell<String>(columnName: 'Code', value: dataGridRow.code),
-              DataGridCell<String>(
-                  columnName: 'Expiration Date', value: getDateString(dataGridRow.expirationDate)),
-              DataGridCell<int>(
-                  columnName: 'In Hand', value: dataGridRow.inHand),
-              DataGridCell<int>(
-                columnName: 'Unit Cost', value: dataGridRow.unitCost),
-            ]))
-        .toList();
+    buildDataGridRows();
   }
   final DataGridController dataGridController;
   final List<Item> items;
@@ -179,7 +168,29 @@ class ItemStockDataSource extends DataGridSource {
       ),
     );
   }
+
+   @override
+  Future<void> handleRefresh() async {
+    await Future.delayed(Duration.zero);
+    buildDataGridRows();
+    notifyListeners();
+  }
   void updateDataGridSource() {
     notifyListeners();
+  }
+  
+  void buildDataGridRows() {
+    dataGridRows = items
+        .map<DataGridRow>((dataGridRow) => DataGridRow(cells: [
+              DataGridCell<String>(columnName: 'Name', value: dataGridRow.name),
+              DataGridCell<String>(columnName: 'Code', value: dataGridRow.code),
+              DataGridCell<String>(
+                  columnName: 'Expiration Date', value: getDateString(dataGridRow.expirationDate)),
+              DataGridCell<int>(
+                  columnName: 'In Hand', value: dataGridRow.inHand),
+              DataGridCell<int>(
+                columnName: 'Unit Cost', value: dataGridRow.unitCost),
+            ]))
+        .toList();
   }
 }

@@ -23,6 +23,7 @@ mixin _$Order {
   String get id => throw _privateConstructorUsedError;
   List<Item> get itemsList => throw _privateConstructorUsedError;
   String get ownerID => throw _privateConstructorUsedError;
+  int get status => throw _privateConstructorUsedError;
   DateTime get dateTime => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -35,7 +36,11 @@ abstract class $OrderCopyWith<$Res> {
   factory $OrderCopyWith(Order value, $Res Function(Order) then) =
       _$OrderCopyWithImpl<$Res>;
   $Res call(
-      {String id, List<Item> itemsList, String ownerID, DateTime dateTime});
+      {String id,
+      List<Item> itemsList,
+      String ownerID,
+      int status,
+      DateTime dateTime});
 }
 
 /// @nodoc
@@ -51,6 +56,7 @@ class _$OrderCopyWithImpl<$Res> implements $OrderCopyWith<$Res> {
     Object? id = freezed,
     Object? itemsList = freezed,
     Object? ownerID = freezed,
+    Object? status = freezed,
     Object? dateTime = freezed,
   }) {
     return _then(_value.copyWith(
@@ -66,6 +72,10 @@ class _$OrderCopyWithImpl<$Res> implements $OrderCopyWith<$Res> {
           ? _value.ownerID
           : ownerID // ignore: cast_nullable_to_non_nullable
               as String,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -80,7 +90,11 @@ abstract class _$$_OrderCopyWith<$Res> implements $OrderCopyWith<$Res> {
       __$$_OrderCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String id, List<Item> itemsList, String ownerID, DateTime dateTime});
+      {String id,
+      List<Item> itemsList,
+      String ownerID,
+      int status,
+      DateTime dateTime});
 }
 
 /// @nodoc
@@ -97,6 +111,7 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res>
     Object? id = freezed,
     Object? itemsList = freezed,
     Object? ownerID = freezed,
+    Object? status = freezed,
     Object? dateTime = freezed,
   }) {
     return _then(_$_Order(
@@ -112,6 +127,10 @@ class __$$_OrderCopyWithImpl<$Res> extends _$OrderCopyWithImpl<$Res>
           ? _value.ownerID
           : ownerID // ignore: cast_nullable_to_non_nullable
               as String,
+      status: status == freezed
+          ? _value.status
+          : status // ignore: cast_nullable_to_non_nullable
+              as int,
       dateTime: dateTime == freezed
           ? _value.dateTime
           : dateTime // ignore: cast_nullable_to_non_nullable
@@ -128,6 +147,7 @@ class _$_Order implements _Order {
       {required this.id,
       required final List<Item> itemsList,
       required this.ownerID,
+      required this.status,
       required this.dateTime})
       : _itemsList = itemsList;
 
@@ -146,11 +166,13 @@ class _$_Order implements _Order {
   @override
   final String ownerID;
   @override
+  final int status;
+  @override
   final DateTime dateTime;
 
   @override
   String toString() {
-    return 'Order(id: $id, itemsList: $itemsList, ownerID: $ownerID, dateTime: $dateTime)';
+    return 'Order(id: $id, itemsList: $itemsList, ownerID: $ownerID, status: $status, dateTime: $dateTime)';
   }
 
   @override
@@ -162,6 +184,7 @@ class _$_Order implements _Order {
             const DeepCollectionEquality()
                 .equals(other._itemsList, _itemsList) &&
             const DeepCollectionEquality().equals(other.ownerID, ownerID) &&
+            const DeepCollectionEquality().equals(other.status, status) &&
             const DeepCollectionEquality().equals(other.dateTime, dateTime));
   }
 
@@ -172,6 +195,7 @@ class _$_Order implements _Order {
       const DeepCollectionEquality().hash(id),
       const DeepCollectionEquality().hash(_itemsList),
       const DeepCollectionEquality().hash(ownerID),
+      const DeepCollectionEquality().hash(status),
       const DeepCollectionEquality().hash(dateTime));
 
   @JsonKey(ignore: true)
@@ -192,6 +216,7 @@ abstract class _Order implements Order {
       {required final String id,
       required final List<Item> itemsList,
       required final String ownerID,
+      required final int status,
       required final DateTime dateTime}) = _$_Order;
 
   factory _Order.fromJson(Map<String, dynamic> json) = _$_Order.fromJson;
@@ -202,6 +227,8 @@ abstract class _Order implements Order {
   List<Item> get itemsList;
   @override
   String get ownerID;
+  @override
+  int get status;
   @override
   DateTime get dateTime;
   @override

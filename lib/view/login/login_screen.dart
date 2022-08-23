@@ -92,8 +92,7 @@ class LoginScreen extends StatelessWidget {
                     primary: Colors.red,
                   ),
                   onPressed: (){
-                    authController.isAuthenticated.value = true;
-                    Get. back();
+                    authController.signInWithGoogle();
                   }, 
                   child: Text(
                     "Google",

@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.thukha">
+    package="com.kzn.thukha">
    <application
         android:label="thukha"
         android:name="${applicationName}"

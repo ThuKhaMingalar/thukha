@@ -56,6 +56,7 @@ showThankYou(context){
                       ),
                       onPressed: (){
                         Get.back();
+                        Get.back();
                       }, 
                       child: SizedBox(
                         height: 50,
