@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:thukha/utils/routes/route_url.dart';
+import 'package:thukha/view/absentee_detail/absentee_detail.dart';
 import 'package:thukha/view/home_screen.dart';
 import 'package:thukha/view/login/login_screen.dart';
 import 'package:thukha/view/manange_stock_table/bin/manage_stock_binding.dart';
@@ -37,5 +38,9 @@ List<GetPage> getPages = [
     name: updateProfileScreen, 
     binding: UpdateProfileBinding(),
     page: () => const UpdateProfileView(),
+    ),
+  GetPage(
+    name: absenteeDetailScreen, 
+    page: () => const AbsenteeDetailView(),
     ),
 ];

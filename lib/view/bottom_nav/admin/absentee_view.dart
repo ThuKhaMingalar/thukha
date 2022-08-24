@@ -5,6 +5,8 @@ import 'package:thukha/constant/mock.dart';
 import 'package:thukha/controller/data_controller.dart';
 import 'package:thukha/model/shop.dart';
 
+import '../../../utils/routes/route_url.dart';
+
 class AbsenteeView extends StatelessWidget {
   const AbsenteeView({Key? key}) : super(key: key);
 
@@ -52,17 +54,32 @@ class AbsenteeView extends StatelessWidget {
                   if(shopID != abReport.ownerID){
                     return const SizedBox();
                   }
-                  return Card(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          //Name
-                          Text("Name: ${abReport.name}"),
-                          //Absence Date
-                          Text(abReport.absenceDate),
-                        ],
+                  return InkWell(
+                    onTap: (){
+                      Get.toNamed(absenteeDetailScreen,
+                      arguments: abReport);
+                    },
+                    child: Card(
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: BorderRadius.zero,
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            //Name
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text("Name: ${abReport.name}"),
+                            ),
+                            //Absence Date
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(abReport.absenceDate),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
