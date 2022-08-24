@@ -105,8 +105,9 @@ class OrderStatusList extends StatelessWidget {
                                     style: Theme.of(context).textTheme.bodyText2,
                                   ),
                                 ),
+                              const SizedBox(width: 20,),
                               //Name
-                              Text(item.name),
+                              Expanded(child: Text(item.name)),
                             ],
                           ),
                         ),
@@ -128,11 +129,11 @@ class OrderStatusList extends StatelessWidget {
                   e.status != 2 ?  IconButton(
                       onPressed: (){
                         if(e.status == 0){//For Delivering
-                          showAcceptDialog(Get.context,e.id);
+                          showAcceptDialog(Get.context,e.id,e.ownerID);
                         }
                         if(e.status == 1){
                           //For Delivered
-                          dataController.confirmOrder(e.id, 2);
+                          dataController.confirmOrder(e.id, 2,e.ownerID,null);
                         }
                       }, 
                       icon: const Icon(FontAwesomeIcons.circleCheck),

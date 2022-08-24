@@ -10,6 +10,7 @@ class Shop with _$Shop{
     required String name,
     required String image,
     required int status,
+    required String token,
   }) = _Shop;
 
   factory Shop.fromJson(Map<String,dynamic> json) => _$ShopFromJson(json);

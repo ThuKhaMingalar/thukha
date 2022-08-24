@@ -42,7 +42,7 @@ class AbsenteeView extends StatelessWidget {
         Expanded(
           child: Obx(
              () {
-              final shopID = dataController.selectedShop.value.id;
+              final shopID = dataController.selectedShop.value?.id;
               final absenteeList = dataController.absenteeList;
               return ListView.builder(
                 shrinkWrap: true,

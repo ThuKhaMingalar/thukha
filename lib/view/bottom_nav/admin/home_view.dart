@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:thukha/constant/constant.dart';
 import 'package:thukha/constant/mock.dart';
+import 'package:thukha/controller/auth_controller.dart';
 import 'package:thukha/controller/data_controller.dart';
 import 'package:thukha/utils/routes/route_url.dart';
 
@@ -16,6 +17,7 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final DataController dataController = Get.find();
+    final AuthController authController = Get.find();
     return SingleChildScrollView(
       child: Padding(
         padding: const EdgeInsets.only(left: 10,right: 10,top: 20),
@@ -88,8 +90,9 @@ class HomeView extends StatelessWidget {
                                                     return const Text("Image not available");
                                                   },
                                                   imageUrl: shop.image,
-                                                  fit: BoxFit.contain,
+                                                  fit: BoxFit.cover,
                                                   height: 140,
+                                                  width: 120,
                                                 ),
                                       ),
                                     ),
@@ -100,7 +103,7 @@ class HomeView extends StatelessWidget {
                                   () {
                                     final orders = dataController.orderListFromAllShop;
                                     final count = orders.where(
-                                      (e) => e.ownerID == shop.id
+                                      (e) => e.ownerID == shop.id && e.status == 0
                                     ).toList().length;
                                     return Positioned(
                                       top: 0,

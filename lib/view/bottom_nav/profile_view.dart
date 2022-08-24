@@ -1,11 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:thukha/constant/constant.dart';
-import 'package:thukha/constant/mock.dart';
 import 'package:thukha/controller/auth_controller.dart';
-
 import '../../utils/routes/route_url.dart';
 
 class ProfileView extends StatelessWidget {
@@ -14,61 +13,73 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final AuthController authController = Get.find();
-    return Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const SizedBox(height: 20,),
-          //Profile Image
-          Card(
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.all(
-                Radius.circular(100)
-              )
-            ),
-            child: ClipRRect(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(100.0)
-              ),
-              child: Obx(
-                () {
-                  return CachedNetworkImage(
-                        progressIndicatorBuilder: (context, url, status) {
-                          return Shimmer.fromColors(
-                            // ignore: sort_child_properties_last
-                            child: Container(
-                              height: 140,
-                              decoration: const BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.all(
-                                  Radius.circular(100)
-                                )
-                              ),
-                            ),
-                            baseColor: Colors.grey.shade300,
-                            highlightColor: Colors.white,
-                          );
-                        },
-                        errorWidget: (context, url, whatever) {
-                          return const Text("Image not available");
-                        },
-                        imageUrl: (authController.currentShop.value?.status == 5) ?
-                        nullUserImage : authController.currentShop.value!.image,
-                        fit: BoxFit.cover,
-                        height: 140,
-                      );
-                }
+    return  SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Align(
+              alignment: Alignment.topRight,
+              child: IconButton(
+                onPressed: () => Get.toNamed(updateProfileScreen), 
+                icon: const Icon(FontAwesomeIcons.penToSquare),
               ),
             ),
-          ),
-          const SizedBox(height: 15),
-          //Authenticated User Or NOt
-          Obx(() => (authController.currentShop.value?.status == 5) ?
-          const UnAuthenticatedProfile()
-          :
-          const AuthenticatedProfile())
-        ],
-      ),
+            //Profile Image
+            ImageProfile(authController: authController),
+            const SizedBox(height: 15),
+            //Authenticated User Or NOt
+            Obx(() => (authController.currentShop.value?.status == 5) ?
+            const UnAuthenticatedProfile()
+            :
+            const AuthenticatedProfile())
+          ],
+        ),
+    );
+  }
+}
+
+class ImageProfile extends StatelessWidget {
+  const ImageProfile({
+    Key? key,
+    required this.authController,
+  }) : super(key: key);
+
+  final AuthController authController;
+
+  @override
+  Widget build(BuildContext context) {
+    return Obx(
+        () {
+        return CachedNetworkImage(
+          imageBuilder: (context,imageProvider){
+            return CircleAvatar(
+              radius: 100,
+              backgroundColor: Colors.black,
+              child: CircleAvatar(
+                radius: 98,
+                backgroundImage: imageProvider,
+              ),
+            );
+          },
+              progressIndicatorBuilder: (context, url, status) {
+                return Shimmer.fromColors(
+                  // ignore: sort_child_properties_last
+                  child: const CircleAvatar(
+                    radius: 100,
+                    backgroundColor: Colors.white,
+                  ),
+                  baseColor: Colors.grey.shade300,
+                  highlightColor: Colors.white,
+                );
+              },
+              errorWidget: (context, url, whatever) {
+                return const Text("Image not available");
+              },
+              imageUrl: (authController.currentShop.value?.status == 5) ?
+              nullUserImage : authController.currentShop.value!.image,
+              fit: BoxFit.cover,
+            );
+      }
     );
   }
 }
@@ -85,10 +96,14 @@ class AuthenticatedProfile extends StatelessWidget {
     return Column(
       children: [
         //Name
-        Text(
-          shop.name.toUpperCase(),
-          style: Theme.of(context).textTheme
-          .headline1,
+        Obx(
+           () {
+            return Text(
+              authController.currentShop.value!.name.toUpperCase(),
+              style: Theme.of(context).textTheme
+              .headline1,
+            );
+          }
         ),
         //LogOut
         TextButton(
@@ -101,7 +116,7 @@ class AuthenticatedProfile extends StatelessWidget {
         ),
         //Delete
         TextButton(
-          onPressed: (){},
+          onPressed: () => authController.deleteAccount(),
           child: Text(
             "DELETE ACCOUNT".toUpperCase(),
           style: Theme.of(context).textTheme

@@ -7,6 +7,7 @@ import 'package:thukha/model/order.dart';
 import 'package:thukha/utils/widgets/show_loading/show_loading.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../service/api.dart';
 import '../../../utils/widgets/show_thankyou_dialog/show_thankyou.dart';
 
 class MyCartController extends GetxController{
@@ -28,6 +29,10 @@ class MyCartController extends GetxController{
       await firebaseFirestore.collection(orderCollection)
       .doc(order.id)
       .set(order.toJson());
+      await Api.sendPushToAdmin(
+        "Order တင်ခြင်း",
+        "From ${authController.currentShop.value!.name}",
+      );
       hideLoading();
       showThankYou(Get.context);
       dataController.clearCartMap();

@@ -7,6 +7,8 @@ import 'package:thukha/view/manange_stock_table/view/manage_stock_table.dart';
 import 'package:thukha/view/my_cart/bin/my_cart_binding.dart';
 import 'package:thukha/view/my_cart/view/my_cart_view.dart';
 import 'package:thukha/view/order_detail/view/order_detail_view.dart';
+import 'package:thukha/view/update_profile/bin/update_profile_binding.dart';
+import 'package:thukha/view/update_profile/view/update_profile_view.dart';
 
 List<GetPage> getPages = [
   GetPage(
@@ -30,5 +32,10 @@ List<GetPage> getPages = [
     name: manageStockStableScreen, 
     binding: ManageStockBinding(),
     page: () => const ManageStockTable(),
+    ),
+  GetPage(
+    name: updateProfileScreen, 
+    binding: UpdateProfileBinding(),
+    page: () => const UpdateProfileView(),
     ),
 ];

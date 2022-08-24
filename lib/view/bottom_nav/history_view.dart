@@ -37,22 +37,24 @@ class HistoryView extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            //Name
-                            Text("Name: ${item.name}"),
-                            //Count
-                            Text("Count: ${item.count}"),
-                            //DateTime
-                            Text(
-                                DateFormat.yMMMMEEEEd().format(
-                                  item.dateTime
-                                ),
-                              style: Theme.of(context).textTheme
-                              .subtitle1,
-                            ),
-                          ],
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              //Name
+                              Text("Name: ${item.name}"),
+                              //Count
+                              Text("Count: ${item.count}"),
+                              //DateTime
+                              Text(
+                                  DateFormat.yMMMMEEEEd().format(
+                                    item.dateTime
+                                  ),
+                                style: Theme.of(context).textTheme
+                                .subtitle1,
+                              ),
+                            ],
+                          ),
                         ),
                         //Status
                         Container(

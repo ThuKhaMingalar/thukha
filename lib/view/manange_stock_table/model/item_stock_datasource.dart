@@ -4,6 +4,7 @@ import 'package:get/get_utils/get_utils.dart';
 import 'package:syncfusion_flutter_datagrid/datagrid.dart';
 import 'package:thukha/model/item.dart';
 import 'package:thukha/utils/widgets/show_loading/show_loading.dart';
+import 'package:thukha/view/manange_stock_table/controller/manage_stock_controller.dart';
 
 String getDateString(DateTime time) => "${time.year}-${time.month}-${time.day}";
 
@@ -64,49 +65,58 @@ class ItemStockDataSource extends DataGridSource {
       return;
     }
 
-    updateDateIntoFirebase() async{
+    /* updateDateIntoFirebase() async{
       showLoading();
       await Future.delayed(Duration.zero);
       await Future.delayed(const Duration(
         milliseconds: 100),
         () => Get.back()
         );
-    }
-
+    } */
+    final item = items[dataRowIndex];
+    final ManageStockController stockController = Get.find();
     if (column.columnName == 'name') {
       dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
           DataGridCell<String>(columnName: 'name', value: newCellValue);
-      updateDateIntoFirebase().then((value) => {
+      stockController.updateName(itemID: item.id, value: newCellValue.toString()).then((value) => {
         items[dataRowIndex] = items[dataRowIndex].copyWith(name: newCellValue.toString())
       });
 
     } else if (column.columnName == 'code') {
       dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
           DataGridCell<String>(columnName: 'code', value: newCellValue);
-      items[dataRowIndex] = items[dataRowIndex].copyWith(code: newCellValue.toString());
+          stockController.updateCode(itemID: item.id, 
+          value: newCellValue.toString())
+          .then((value) => items[dataRowIndex] = items[dataRowIndex].copyWith(code: newCellValue.toString()));
+      
     } else if (column.columnName == 'expirationDate') {
       dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
           DataGridCell<String>(columnName: 'expirationDate', value: newCellValue);
           var splitList = newCellValue.toString().split("-");
-      items[dataRowIndex] = items[dataRowIndex].copyWith(
-        expirationDate: DateTime(
-          splitList[0] as int,
-          splitList[1] as int,
-          splitList[2] as int,
-          )
-      );
+          final dateTime = DateTime(
+          int.parse(splitList[0]),
+          int.parse(splitList[1]),
+          int.parse(splitList[2]),
+          );
+      stockController.updateExpirationDate(itemID: item.id, 
+      value: dateTime.toString()).then((value) => items[dataRowIndex] = items[dataRowIndex].copyWith(
+        expirationDate: dateTime,
+      ));
     }  else if (column.columnName == 'inHand') {
       dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
           DataGridCell<int>(columnName: 'inHand', value: newCellValue as int);
-      items[dataRowIndex] = items[dataRowIndex].copyWith(
+      stockController.updateInHand(itemID: item.id, value: newCellValue as int)
+      .then((value) => items[dataRowIndex] = items[dataRowIndex].copyWith(
         inHand: newCellValue as int,
-        );
+        ));
     }else {
       dataGridRows[dataRowIndex].getCells()[rowColumnIndex.columnIndex] =
-          DataGridCell<int>(columnName: 'unitCost', value: newCellValue);
-      items[dataRowIndex] = items[dataRowIndex].copyWith(
+          DataGridCell<int>(columnName: 'unitCost', value: newCellValue as int);
+      stockController.updateUnitCost(itemID: item.id, 
+      value: newCellValue as int)
+      .then((value) => items[dataRowIndex] = items[dataRowIndex].copyWith(
         unitCost: newCellValue as int,
-      );
+      ));
     }
   }
 

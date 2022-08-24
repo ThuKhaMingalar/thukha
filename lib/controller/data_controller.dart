@@ -7,6 +7,7 @@ import 'package:thukha/model/absence_report.dart';
 import 'package:thukha/model/item.dart';
 import 'package:thukha/model/order.dart';
 import 'package:thukha/model/shop.dart';
+import 'package:thukha/service/api.dart';
 import 'package:thukha/utils/widgets/show_loading/show_loading.dart';
 import 'package:uuid/uuid.dart';
 
@@ -67,7 +68,7 @@ class DataController extends GetxController {
   /**
    * Absentee View For ADmin
    */
-  var selectedShop = shopList.first.obs;
+  Rxn<Shop> selectedShop = Rxn<Shop>();
   RxList<AbsenceReport> absenteeList = <AbsenceReport>[].obs;
   void changeSelectedShop(Shop? shop){
     if(!(shop == null)){
@@ -201,14 +202,23 @@ class DataController extends GetxController {
     .value!.id).toList();
   }
 
-  Future<void> confirmOrder(String id,int status) async{
+  Future<void> confirmOrder(String id,int status,String ownerID,
+  String? minutes) async{
+    showLoading();
     try{
       await firebaseFirestore.collection(orderCollection)
       .doc(id)
       .update({
         "status": status,
       });
+      await Api.sendPushToUser(
+      status == 2 ? "Order ‌ရောက်ရှိကြောင်း" :  "$minutesမိနစ်အတွင်း ရောက်ရှိပါမည်", 
+      status == 2 ? "အသိပေးပါသည်":"Admin ထံမှ", 
+      ownerID);
+      hideLoading();
+      Get.back();
     }on FirebaseException catch(e){
+      hideLoading();
       Get.snackbar("Fail!","$e");
       debugPrint("*****Fail,$e");
     }

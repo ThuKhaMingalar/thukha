@@ -21,42 +21,33 @@ class LoginScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //AppLogo
-              Card(
-              shape: const RoundedRectangleBorder(
-                borderRadius: BorderRadius.all(
-                  Radius.circular(100)
-                )
-              ),
-              child: ClipRRect(
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(100.0)
+              CachedNetworkImage(
+                imageBuilder: (context,imageProvider){
+                  return CircleAvatar(
+                    radius: 100,
+                    backgroundColor: Colors.black,
+                    child: CircleAvatar(
+                      radius: 99,
+                      backgroundImage: imageProvider,
+                    ),
+                  );
+                },
+                  progressIndicatorBuilder: (context, url, status) {
+                    return Shimmer.fromColors(
+                      // ignore: sort_child_properties_last
+                      child: const CircleAvatar(
+                        radius: 100,
+                        backgroundColor: Colors.white,
+                      ),
+                      baseColor: Colors.grey.shade300,
+                      highlightColor: Colors.white,
+                    );
+                  },
+                  errorWidget: (context, url, whatever) {
+                    return const Text("Image not available");
+                  },
+                  imageUrl: appLogo,
                 ),
-                child: CachedNetworkImage(
-                          progressIndicatorBuilder: (context, url, status) {
-                            return Shimmer.fromColors(
-                              // ignore: sort_child_properties_last
-                              child: Container(
-                                height: 140,
-                                decoration: const BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.all(
-                                    Radius.circular(100)
-                                  )
-                                ),
-                              ),
-                              baseColor: Colors.grey.shade300,
-                              highlightColor: Colors.white,
-                            );
-                          },
-                          errorWidget: (context, url, whatever) {
-                            return const Text("Image not available");
-                          },
-                          imageUrl: appLogo,
-                          fit: BoxFit.cover,
-                          height: 200,
-                        ),
-              ),
-            ),
               //AppName
               Text(
                 "ThuKha Mingalar".toUpperCase(),

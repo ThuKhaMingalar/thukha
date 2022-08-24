@@ -83,8 +83,7 @@ class _ManageStockTableState extends State<ManageStockTable> {
                   startSwipeActionsBuilder: (BuildContext context, DataGridRow row, int rowIndex) {
                           return GestureDetector(
                               onTap: () {
-                                _controller.itemStockDataSource.dataGridRows.removeAt(rowIndex);
-                                _controller.itemStockDataSource.updateDataGridSource();
+                                _controller.deleteItem(rowIndex);
                               },
                               child: Container(
                                   color: Colors.redAccent,

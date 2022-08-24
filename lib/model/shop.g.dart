@@ -11,6 +11,7 @@ _$_Shop _$$_ShopFromJson(Map<String, dynamic> json) => _$_Shop(
       name: json['name'] as String,
       image: json['image'] as String,
       status: json['status'] as int,
+      token: json['token'] as String,
     );
 
 Map<String, dynamic> _$$_ShopToJson(_$_Shop instance) => <String, dynamic>{
@@ -18,4 +19,5 @@ Map<String, dynamic> _$$_ShopToJson(_$_Shop instance) => <String, dynamic>{
       'name': instance.name,
       'image': instance.image,
       'status': instance.status,
+      'token': instance.token,
     };

@@ -5,13 +5,14 @@ import 'package:get/get.dart';
 
 import '../../../controller/data_controller.dart';
 
-showAcceptDialog(context,String orderID){
+showAcceptDialog(context,String orderID,String ownerID){
   showDialog(
     barrierColor: Colors.white.withOpacity(0),
             context: context, 
             builder: (context){
               return  Center(
-                child: TimeInputFormField(orderID: orderID),
+                child: TimeInputFormField(orderID: orderID,
+                ownerID: ownerID),
               );
             }
     );
@@ -21,9 +22,11 @@ class TimeInputFormField extends StatefulWidget {
   const TimeInputFormField({
     Key? key,
     required this.orderID,
+    required this.ownerID,
   }) : super(key: key);
 
   final String orderID;
+  final String ownerID;
 
   @override
   State<TimeInputFormField> createState() => _TimeInputFormFieldState();
@@ -175,7 +178,8 @@ class _TimeInputFormFieldState extends State<TimeInputFormField> {
                                             ),
                                           ),
                                           onPressed: (){
-                                                 dataController.confirmOrder(widget.orderID,1);
+                                                 dataController.confirmOrder(widget.orderID,1,widget.ownerID,
+                                                 textController.text);
                                                   }, 
                                                   child: SizedBox(
                                                     height: 50,

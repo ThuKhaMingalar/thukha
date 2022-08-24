@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -10,12 +11,14 @@ import 'package:thukha/utils/widgets/show_loading/show_loading.dart';
 class AuthController extends GetxController {
   final firebaseAuth = FirebaseAuth.instance;
   final firebaseFirestore = FirebaseFirestore.instance;
+  var currentUserDeviceToken = "".obs;
   var isAuthenticated = true.obs;
   Rxn<Shop> currentShop = Rxn<Shop>(Shop(
                             id: "guestID", 
                             name: "Guest", 
                             image: nullUserImage, 
                             status: 5,
+                            token: "mockToken"
                           ));
     
   bool isShop(){
@@ -26,8 +29,11 @@ class AuthController extends GetxController {
     }         
   }
 
+
   @override
   void onInit() {
+    getDeviceToken();
+    FirebaseMessaging.instance.onTokenRefresh.listen(saveTokenToDatabase);
     /**Listen For User Authenticated*/
     firebaseAuth.userChanges().listen((user) {
       if(user == null){//If user is null we sign in with Annonymus
@@ -47,6 +53,10 @@ class AuthController extends GetxController {
         .doc(user.uid)
         .snapshots()
         .listen((event) {
+          if(event.data() == null){
+            signInWithAnonymous();
+            return;
+          }
           currentShop.value = Shop.fromJson(event.data()!);
         });
        });
@@ -62,6 +72,7 @@ class AuthController extends GetxController {
                             name: "Guest", 
                             image: nullUserImage, 
                             status: 5,
+                            token: "mockToken"
                           );
     try {
           await FirebaseAuth.instance.signInAnonymously();
@@ -99,6 +110,7 @@ class AuthController extends GetxController {
       name: user.displayName ?? "", 
       image: user.photoURL ?? "", 
       status: 0,
+      token: currentUserDeviceToken.value,
     );
     try {
       await firebaseFirestore.collection(userCollection)
@@ -136,4 +148,48 @@ class AuthController extends GetxController {
   Future<void> logOut() async{
     await FirebaseAuth.instance.signOut();
   }
+
+  Future<void> deleteAccount() async{
+    showLoading();
+   await firebaseFirestore.collection(userCollection).doc(
+    currentShop.value!.id
+   ).delete()
+    .then((value) async{
+      try {
+        await FirebaseAuth.instance.currentUser?.delete();
+      }on FirebaseAuthException catch (e){
+        if (e.code == "requires-recent-login") {
+          //TODO: WE NEED TO PROMPT TO REAUTHENTICATE,then delete() again
+          debugPrint("**********${e.code}");
+          return;
+        }
+        debugPrint("**********${e.code}");
+      }
+    });
+    hideLoading();
+  }
+
+  //-------------------------GET TOKEN--------------------//
+    Future<void> getDeviceToken() async{
+      try{
+        currentUserDeviceToken.value = await FirebaseMessaging.instance.getToken() ?? "";
+      }catch(e){
+        debugPrint("**************Error Getting Token: $e");
+      }
+    }
+    Future<void> saveTokenToDatabase(String token) async {
+  FirebaseFirestore.instance.runTransaction((transaction) async{
+    try {
+      final secureSnapshot = await FirebaseFirestore.instance
+    .collection(userCollection)
+    .doc(currentShop.value!.id).get();
+    transaction.update(secureSnapshot.reference, {
+        "token": currentUserDeviceToken.value,
+        });
+    } catch (e) {
+      Get.snackbar("Fail!", "$e");
+    }
+    });
+  }
+
 }
