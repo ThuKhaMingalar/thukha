@@ -43,11 +43,29 @@ class _OrderDetailViewState extends State<OrderDetailView> {
         body: TabBarView(
           children: [
             //Pending
-            OrderStatusList(future: dataController.getPendingOrders()),
+            OrderStatusList(
+              future: dataController.getPendingOrders(),
+              callBack: (){
+                setState(() {
+                });
+              },
+              ),
             //Delivering
-            OrderStatusList(future: dataController.getDeliveringOrders()),
+            OrderStatusList(
+              future: dataController.getDeliveringOrders(),
+              callBack: (){
+                setState(() {
+                });
+              },
+            ),
             //Delivered
-            OrderStatusList(future: dataController.getDeliveredOrders()),
+            OrderStatusList(
+              future: dataController.getDeliveredOrders(),
+              callBack: (){
+                setState(() {
+                });
+              },
+            ),
           ],
           ),
       ),
@@ -59,9 +77,11 @@ class OrderStatusList extends StatelessWidget {
   const OrderStatusList({
     Key? key,
     required this.future,
+    required this.callBack,
   }) : super(key: key);
 
   final Future<List<Order>> future;
+  final void Function() callBack;
 
   @override
   Widget build(BuildContext context) {
@@ -129,11 +149,13 @@ class OrderStatusList extends StatelessWidget {
                   e.status != 2 ?  IconButton(
                       onPressed: (){
                         if(e.status == 0){//For Delivering
-                          showAcceptDialog(Get.context,e.id,e.ownerID);
+                          showAcceptDialog(Get.context,e.id,e.ownerID,
+                          callBack);
                         }
                         if(e.status == 1){
                           //For Delivered
                           dataController.confirmOrder(e.id, 2,e.ownerID,null);
+                          callBack();
                         }
                       }, 
                       icon: const Icon(FontAwesomeIcons.circleCheck),

@@ -45,7 +45,7 @@ class AppTheme{
         titleTextStyle: lightText.headline2,
         iconTheme: const IconThemeData(
           color: Colors.black,
-          size: 50,
+          size: 35,
         )
       ),
       cardTheme: const CardTheme(

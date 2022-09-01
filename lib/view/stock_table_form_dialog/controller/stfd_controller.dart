@@ -6,6 +6,8 @@ import 'package:thukha/utils/widgets/show_loading/show_loading.dart';
 import 'package:thukha/view/manange_stock_table/controller/manage_stock_controller.dart';
 import 'package:uuid/uuid.dart';
 
+import '../../../model/validator.dart';
+
 class STFDController extends GetxController{
   final DataController _dataController = Get.find();
   final ManageStockController _manageStockController = Get.find();
@@ -23,6 +25,10 @@ class STFDController extends GetxController{
     int day = int.parse(list[2]);
     return DateTime(year,month,day);
   }
+  
+  final GlobalKey<FormState> formkey = GlobalKey<FormState>();
+  final isFirstTimePressed = false.obs;
+  
   String? validate(String? value) => !(value == null) && value.isNotEmpty ? null : "require";
 
   void refresh() {
@@ -31,9 +37,14 @@ class STFDController extends GetxController{
     costController.clear();
     dateTimeController.clear();
     inHandController.clear();
+    isFirstTimePressed.value = false;
   }
 
   Future<void> addItemIntoList() async{
+    isFirstTimePressed.value = true;
+    if(formkey.currentState?.validate() == false){
+      return;
+    }
     showLoading();
     await _manageStockController.addItem(
       Item(

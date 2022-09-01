@@ -7,6 +7,7 @@ import 'package:thukha/model/absence_report.dart';
 import 'package:thukha/model/item.dart';
 import 'package:thukha/model/order.dart';
 import 'package:thukha/model/shop.dart';
+import 'package:thukha/model/validator.dart';
 import 'package:thukha/service/api.dart';
 import 'package:thukha/utils/widgets/show_loading/show_loading.dart';
 import 'package:uuid/uuid.dart';
@@ -28,6 +29,27 @@ class DataController extends GetxController {
   TextEditingController dateController = TextEditingController();
   TextEditingController absenceTypeController = TextEditingController();
   TextEditingController rNameController = TextEditingController();
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  Map<String,Validator> inputMap = {};
+  final isFirstTimePressed = false.obs;
+
+  String? validate(String key,String? value){
+    if(value == null || value.isEmpty){
+      return "$key is required";
+    }
+    return null;
+  }
+  
+  void assignFormForAbsentee(String key,String error){
+    inputMap.putIfAbsent(key, () => Validator(
+      validator: (value){
+        if(value == null || value.isEmpty){
+          return error;
+        }
+        return null;
+      },
+    ));
+  }
 
   void clearAbsenceForm(){
     nameController.clear();
@@ -35,9 +57,14 @@ class DataController extends GetxController {
     dateController.clear();
     absenceTypeController.clear();
     rNameController.clear();
+    isFirstTimePressed.value = false;
   }
 
   Future<void> reportAbsenteeForm() async{
+    isFirstTimePressed.value = true;
+    if(formKey.currentState?.validate() == false){
+      return;
+    }
     showLoading();
     try {
       final item = AbsenceReport(
@@ -78,6 +105,7 @@ class DataController extends GetxController {
 
   void listenAbsentee(){
     firebaseFirestore.collection(absenteeCollection)
+    .orderBy("dateTime", descending: true)
     .snapshots()
     .listen((event) {
       absenteeList.value = event.docs.map((e) => AbsenceReport.fromJson(
@@ -86,7 +114,6 @@ class DataController extends GetxController {
     });
   }
   /**End */
-
   /**For Admin HomeView */
   RxList<Order> orderListFromAllShop = <Order>[].obs;
   RxList<Shop> allShopList = <Shop>[].obs;
@@ -216,7 +243,6 @@ class DataController extends GetxController {
       status == 2 ? "အသိပေးပါသည်":"Admin ထံမှ", 
       ownerID);
       hideLoading();
-      Get.back();
     }on FirebaseException catch(e){
       hideLoading();
       Get.snackbar("Fail!","$e");

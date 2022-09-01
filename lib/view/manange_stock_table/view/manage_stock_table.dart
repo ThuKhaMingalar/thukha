@@ -42,10 +42,11 @@ class _ManageStockTableState extends State<ManageStockTable> {
           .headline3,
           ),
           IconButton(
-            onPressed: () => Get.dialog(
+            onPressed: () => Get.to(() => const STFDView()),
+            /* onPressed: () => Get.dialog(
               const Center(child: STFDView()),
               barrierColor: Colors.white.withOpacity(0),
-              ), 
+              ),  */
             icon: const Icon(FontAwesomeIcons.circlePlus),
           ),
           ],

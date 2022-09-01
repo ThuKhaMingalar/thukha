@@ -5,14 +5,15 @@ import 'package:get/get.dart';
 
 import '../../../controller/data_controller.dart';
 
-showAcceptDialog(context,String orderID,String ownerID){
+showAcceptDialog(context,String orderID,String ownerID,
+void Function() callBack){
   showDialog(
     barrierColor: Colors.white.withOpacity(0),
             context: context, 
             builder: (context){
               return  Center(
                 child: TimeInputFormField(orderID: orderID,
-                ownerID: ownerID),
+                ownerID: ownerID,callBack: () => callBack(),),
               );
             }
     );
@@ -23,10 +24,12 @@ class TimeInputFormField extends StatefulWidget {
     Key? key,
     required this.orderID,
     required this.ownerID,
+    required this.callBack,
   }) : super(key: key);
 
   final String orderID;
   final String ownerID;
+  final void Function() callBack;
 
   @override
   State<TimeInputFormField> createState() => _TimeInputFormFieldState();
@@ -178,8 +181,10 @@ class _TimeInputFormFieldState extends State<TimeInputFormField> {
                                             ),
                                           ),
                                           onPressed: (){
+                                                 Get.back();
                                                  dataController.confirmOrder(widget.orderID,1,widget.ownerID,
                                                  textController.text);
+                                                 widget.callBack();
                                                   }, 
                                                   child: SizedBox(
                                                     height: 50,
